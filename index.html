@@ -13,42 +13,42 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VeterinaryCare","name":"Royal Pets veterinary clinic","telephone":"+201141616776","address":{"@type":"PostalAddress","streetAddress":"الطريق السريع أمام مبنى الإذاعة والتليفزيون","addressLocality":"El Sheikh Zayed, Ismailia","addressCountry":"EG"},"openingHours":"Mo-Su 13:00-24:00","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.2","reviewCount":"255"}}</script>
 <style>
 :root{
-  --navy:#0E1730; --navy2:#16234A; --ink:#1B2440;
+  --navy:#0B1428; --navy2:#12203F; --ink:#1B2440;
   --gold:#C9A24B; --gold2:#E4C77E; --gold-dim:#8f7434;
-  --cream:#F7F2E7; --cream2:#EFE7D4; --paper:#FCFAF4;
+  --cream:#F7F2E7; --paper:#FCFAF4;
   --mut:#6b6350; --line:#1b244020; --line2:#1b24403a;
   --f-d:"Rakkas",serif; --f-b:"Tajawal",system-ui,sans-serif; --f-l:"Cinzel",serif;
-  --maxw:1120px;
+  --maxw:1140px; --ease:cubic-bezier(.16,1,.3,1); --rad:38px;
 }
 *{box-sizing:border-box}
-html{overflow-x:clip; scroll-behavior:smooth}
-body{margin:0; background:var(--cream); color:var(--ink); font-family:var(--f-b); font-size:17px; line-height:1.8; -webkit-font-smoothing:antialiased}
+html{overflow-x:clip}
+body{margin:0; overflow-x:clip; background:var(--navy); color:var(--ink); font-family:var(--f-b); font-size:17px; line-height:1.8; -webkit-font-smoothing:antialiased}
 img{display:block; max-width:100%}
 a{color:inherit}
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
 ::selection{background:var(--gold); color:var(--navy)}
 
 /* loader */
-#loader{position:fixed; inset:0; z-index:200; background:var(--navy); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:opacity .6s ease, visibility .6s}
-#loader .crown{width:44px; height:34px}
-#loader .nm{font-family:var(--f-l); font-weight:800; letter-spacing:.32em; color:var(--gold2); font-size:15px}
-#loader .ln{width:120px; height:2px; background:#ffffff22; overflow:hidden; border-radius:2px}
-#loader .ln i{display:block; height:100%; width:0; background:var(--gold); transition:width .9s cubic-bezier(.16,1,.3,1)}
-#loader.done{opacity:0; visibility:hidden}
+#loader{position:fixed; inset:0; z-index:300; background:var(--navy); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px}
+#loader .crown{width:52px; height:40px}
+#loader .crown path{stroke-dasharray:120; stroke-dashoffset:120}
+#loader .nm{font-family:var(--f-l); font-weight:800; letter-spacing:.34em; color:var(--gold2); font-size:15px; opacity:0}
+#loader .ln{width:130px; height:2px; background:#ffffff1e; overflow:hidden; border-radius:2px}
+#loader .ln i{display:block; height:100%; width:0; background:var(--gold)}
 html:not(.cin) #loader{display:none}
-@keyframes ldrt{to{opacity:0; visibility:hidden}}
-html.cin #loader{animation:ldrt .6s ease 4.6s forwards}
+@keyframes ldrhide{to{opacity:0; visibility:hidden}}
+html.cin #loader{animation:ldrhide .5s ease 5s forwards}
 
-/* reveal baseline */
-.cin .rv{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .8s cubic-bezier(.16,1,.3,1)}
-.cin .rv.in{opacity:1; transform:none}
-.cin .rv.d1{transition-delay:.08s}.cin .rv.d2{transition-delay:.16s}.cin .rv.d3{transition-delay:.24s}
+/* scroll progress */
+#prog{position:fixed; top:0; inset-inline-start:0; height:3px; width:100%; z-index:120; transform-origin:right; transform:scaleX(0); background:linear-gradient(90deg,var(--gold2),var(--gold)); pointer-events:none}
+html:not(.cin) #prog{display:none}
 
-/* top strip */
-.topbar{position:fixed; inset-block-start:0; inset-inline:0; z-index:60; display:flex; align-items:center; gap:12px; padding:9px clamp(14px,3vw,26px); background:rgba(14,23,48,.86); backdrop-filter:blur(10px); border-block-end:1px solid #c9a24b33; transform:translateY(-110%); transition:transform .45s ease}
+/* topbar */
+.topbar{position:fixed; inset-block-start:0; inset-inline:0; z-index:110; display:flex; align-items:center; gap:12px; padding:9px clamp(14px,3vw,26px); background:rgba(11,20,40,.82); backdrop-filter:blur(12px); border-block-end:1px solid #c9a24b2e; transform:translateY(-110%); transition:transform .5s var(--ease)}
 .topbar.on{transform:none}
 .topbar .emb{width:30px; height:30px; border-radius:50%; object-fit:cover; border:1px solid #c9a24b88}
 .topbar .nm{font-family:var(--f-l); font-weight:800; font-size:13px; letter-spacing:.2em; color:var(--gold2)}
+.topbar .pl{font-size:12px; color:#b9b29e}
 .topbar .sp{flex:1}
 .chip{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700; line-height:1; padding:8px 12px; border-radius:999px; border:1px solid #c9a24b55; color:var(--gold2); background:#c9a24b14; white-space:nowrap}
 .chip .dot{width:7px; height:7px; border-radius:50%; background:#c0564a}
@@ -57,130 +57,143 @@ html.cin #loader{animation:ldrt .6s ease 4.6s forwards}
 .callbtn{font-family:var(--f-b); font-weight:800; font-size:13px; text-decoration:none; color:var(--navy); background:var(--gold); padding:9px 16px; border-radius:999px; white-space:nowrap; transition:transform .25s ease, filter .25s ease}
 .callbtn:hover{transform:translateY(-1px); filter:brightness(1.07)}
 
-/* opener: night sign band */
-.opener{position:relative; background:var(--navy); color:var(--cream); overflow:clip; padding:96px 0 0}
-.opener .band{position:relative; height:min(58svh,520px); min-height:340px; overflow:clip}
-.opener .band img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 38%}
-.cin .opener .band img{transform:scale(1.07); animation:heroIn 1.7s .15s cubic-bezier(.16,1,.3,1) forwards}
-@keyframes heroIn{to{transform:scale(1)}}
-.opener .band::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, #0e1730f2 0%, #0e173066 45%, #0e173022 75%, #0e173088 100%)}
-.opener .over{position:absolute; inset-inline:0; bottom:0; z-index:2; padding:0 22px 30px}
-.opener .over .in{max-width:var(--maxw); margin:0 auto}
-.kicker{display:inline-flex; align-items:center; gap:10px; color:var(--gold2); font-weight:700; font-size:13.5px; letter-spacing:.02em}
-.kicker::before{content:""; width:34px; height:1px; background:var(--gold)}
-.opener h1{margin:.35em 0 .1em; font-family:var(--f-l); font-weight:800; font-size:clamp(40px,7.5vw,84px); line-height:1.04; letter-spacing:.06em; color:#fff; text-shadow:0 4px 40px #00000088}
-.opener h1 .ar{display:block; font-family:var(--f-d); font-weight:400; font-size:clamp(20px,3.4vw,34px); letter-spacing:0; color:var(--gold2); margin-top:10px}
-.cin .mask{overflow:hidden; display:block; padding-bottom:.14em; margin-bottom:-.14em}
-.cin .mask>span{display:block; transform:translateY(110%); transition:transform 1s cubic-bezier(.16,1,.3,1)}
-.cin .mask.in>span{transform:none}
-.metaline{display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; margin-top:18px; color:#e8e2d2}
+/* HERO — sticky, panels slide over it */
+.hero{position:sticky; top:0; z-index:0; height:100svh; overflow:clip; background:var(--navy); color:var(--cream); display:flex; align-items:flex-end}
+.hero .bgwrap{position:absolute; inset:-12% 0 0 0; z-index:0}
+.hero .bgwrap img{width:100%; height:100%; object-fit:cover; object-position:50% 34%}
+.hero .shade{position:absolute; inset:0; z-index:1; background:linear-gradient(to top, rgba(11,20,40,.97) 4%, rgba(11,20,40,.62) 40%, rgba(11,20,40,.2) 68%, rgba(11,20,40,.55) 100%)}
+.hero .grain{position:absolute; inset:0; z-index:1; opacity:.5; background:radial-gradient(120% 90% at 50% 110%, transparent 55%, rgba(11,20,40,.5) 100%)}
+.hero .inner{position:relative; z-index:2; width:100%; max-width:var(--maxw); margin:0 auto; padding:0 22px clamp(44px,7vh,76px)}
+.kicker{display:inline-flex; align-items:center; gap:10px; color:var(--gold2); font-weight:700; font-size:13.5px}
+.kicker::before{content:""; width:36px; height:1px; background:var(--gold)}
+.hero h1{margin:.3em 0 .12em; font-family:var(--f-l); font-weight:800; font-size:clamp(46px,9vw,118px); line-height:1.02; letter-spacing:.05em; color:#fff; text-shadow:0 6px 50px #0009}
+.hero h1 .ar{display:block; font-family:var(--f-d); font-weight:400; font-size:clamp(22px,3.6vw,38px); letter-spacing:0; color:var(--gold2); margin-top:12px}
+.wmask{display:inline-block; overflow:hidden; vertical-align:bottom; padding-bottom:.12em; margin-bottom:-.12em}
+.wmask>span{display:inline-block; will-change:transform}
+.cin .wmask>span{transform:translateY(115%)}
+html:not(.cin) .wmask>span{transform:none}
+.metaline{display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px; margin-top:20px; color:#e8e2d2}
 .metaline .rt{display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:15px}
 .metaline .rt b{color:var(--gold2); font-size:19px}
 .metaline .star{color:var(--gold); font-size:15px; letter-spacing:2px}
-.metaline .sep{width:1px; height:18px; background:#ffffff33}
+.metaline .sep{width:1px; height:18px; background:#ffffff2e}
 .metaline .pl{font-size:13.5px; color:#cfc8b4}
-/* gold thread */
-.thread{height:3px; background:linear-gradient(90deg,transparent,var(--gold) 18%,var(--gold) 82%,transparent); opacity:.85}
+.hero .ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px}
+.btn{display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:800; font-size:15px; padding:14px 26px; border-radius:999px; transition:filter .25s ease; will-change:transform}
+.btn.gold{background:var(--gold); color:var(--navy); box-shadow:0 14px 34px -12px #c9a24b88}
+.btn.gold:hover{filter:brightness(1.07)}
+.btn.ghost{border:1.5px solid #e4c77e66; color:var(--gold2)}
+.btn.ghost:hover{background:#e4c77e1a}
+.btn.onlight.ghost{border-color:var(--navy); color:var(--navy)}
+.btn.onlight.ghost:hover{background:var(--navy); color:var(--cream)}
+.hero .hint{position:absolute; z-index:2; bottom:16px; inset-inline-end:26px; display:flex; align-items:center; gap:9px; color:#cfc8b4; font-size:12px; font-weight:700; letter-spacing:.04em}
+.hero .hint i{display:block; width:1px; height:34px; background:linear-gradient(var(--gold),transparent); animation:drop 1.8s var(--ease) infinite}
+@keyframes drop{0%{transform:scaleY(0); transform-origin:top}45%{transform:scaleY(1); transform-origin:top}55%{transform:scaleY(1); transform-origin:bottom}100%{transform:scaleY(0); transform-origin:bottom}}
 
-/* question / picker */
-.ask{background:var(--paper); padding:clamp(56px,8vw,96px) 0; border-bottom:1px solid var(--line)}
-.ask .grid{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(28px,5vw,64px); align-items:center}
-h2{font-family:var(--f-d); font-weight:400; font-size:clamp(30px,4.6vw,48px); line-height:1.25; margin:0 0 14px; color:var(--navy)}
+/* stacked panels */
+.stk{position:relative; z-index:2}
+.panel{position:relative; border-radius:var(--rad) var(--rad) 0 0; margin-top:calc(var(--rad) * -1); box-shadow:0 -30px 60px -30px #000a}
+.panel.light{background:var(--paper); color:var(--ink)}
+.panel.creamy{background:var(--cream); color:var(--ink)}
+.panel.dark{background:var(--navy2); color:var(--cream)}
+.panel .pad{padding:clamp(60px,9vw,110px) 0}
+
+/* headings */
+h2{font-family:var(--f-d); font-weight:400; font-size:clamp(32px,5.2vw,56px); line-height:1.22; margin:0 0 16px; color:inherit}
 h2 .g{color:var(--gold-dim)}
-.lead{color:var(--mut); font-size:16.5px; max-width:46ch; margin:0 0 22px}
-.pets{display:flex; flex-wrap:wrap; gap:10px; margin:6px 0 20px}
-.pet{cursor:pointer; border:1.5px solid var(--line2); background:var(--cream); color:var(--ink); font-family:var(--f-b); font-weight:800; font-size:15px; padding:11px 20px; border-radius:999px; display:inline-flex; align-items:center; gap:9px; transition:all .3s ease}
+.dark h2 .g{color:var(--gold2)}
+.lead{color:var(--mut); font-size:16.5px; max-width:48ch; margin:0 0 24px}
+.dark .lead{color:#b9b29e}
+
+/* ASK */
+.ask{overflow:clip}
+.ask .ghostword{position:absolute; top:44px; inset-inline-start:-1%; font-family:var(--f-d); font-size:clamp(120px,24vw,300px); line-height:1; color:transparent; -webkit-text-stroke:1.5px #c9a24b3a; pointer-events:none; user-select:none; white-space:nowrap; transition:opacity .5s ease; z-index:0}
+.ask .grid{display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(30px,5vw,70px); align-items:center; position:relative; z-index:1}
+.pets{display:flex; flex-wrap:wrap; gap:10px; margin:8px 0 20px}
+.pet{cursor:pointer; border:1.5px solid var(--line2); background:var(--cream); color:var(--ink); font-family:var(--f-b); font-weight:800; font-size:15px; padding:12px 22px; border-radius:999px; display:inline-flex; align-items:center; gap:9px; transition:background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease}
 .pet svg{width:19px; height:19px}
 .pet:hover{border-color:var(--gold); transform:translateY(-2px)}
 .pet.sel{background:var(--navy); color:var(--gold2); border-color:var(--navy)}
-.ask .ans{min-height:2.2em; font-size:15.5px; color:var(--navy); font-weight:700; margin:0 0 20px; transition:opacity .35s ease}
-.ask .ans.swap{opacity:0}
-.ctas{display:flex; flex-wrap:wrap; gap:12px}
-.btn{display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:800; font-size:15px; padding:13px 24px; border-radius:14px; transition:transform .25s ease, filter .25s ease, background .25s ease}
-.btn:hover{transform:translateY(-2px)}
-.btn.gold{background:var(--gold); color:var(--navy)}
-.btn.gold:hover{filter:brightness(1.06)}
-.btn.ghost{border:1.5px solid var(--navy); color:var(--navy)}
-.btn.ghost:hover{background:var(--navy); color:var(--cream)}
+.ask .ans{min-height:2.2em; font-size:16px; color:var(--navy); font-weight:700; margin:0 0 22px}
 .portrait{position:relative}
-.portrait .ring{position:absolute; inset:-14px -14px auto auto; width:120px; height:120px; border:2px solid var(--gold); border-radius:50%; opacity:.5; z-index:0}
-.portrait .ph{position:relative; border-radius:200px 200px 22px 22px; overflow:hidden; border:3px solid var(--gold); box-shadow:0 30px 60px -30px #0e173066; aspect-ratio:3/4}
-.portrait img{width:100%; height:100%; object-fit:cover; transition:opacity .45s ease, transform 6s ease}
-.portrait .ph:hover img{transform:scale(1.04)}
-.portrait img.swap{opacity:0}
-.portrait .cap{position:absolute; bottom:14px; inset-inline-start:14px; background:#0e1730d9; color:var(--gold2); font-size:12.5px; font-weight:700; padding:7px 13px; border-radius:999px; border:1px solid #c9a24b44}
+.portrait .ring{position:absolute; inset:-16px -16px auto auto; width:130px; height:130px; border:2px solid var(--gold); border-radius:50%; opacity:.55; z-index:0}
+.portrait .ring2{position:absolute; bottom:-22px; inset-inline-start:-22px; width:90px; height:90px; border:1.5px dashed #c9a24b77; border-radius:50%; z-index:0}
+.portrait .ph{position:relative; border-radius:210px 210px 24px 24px; overflow:hidden; border:3px solid var(--gold); box-shadow:0 40px 80px -34px #0b142866; aspect-ratio:3/4; z-index:1}
+.portrait img{width:100%; height:100%; object-fit:cover}
+.portrait .cap{position:absolute; bottom:14px; inset-inline-start:14px; z-index:2; background:#0b1428d9; color:var(--gold2); font-size:12.5px; font-weight:700; padding:7px 13px; border-radius:999px; border:1px solid #c9a24b44}
 
-/* guests gallery */
-.guests{background:var(--navy); color:var(--cream); padding:clamp(60px,8vw,100px) 0}
-.guests h2{color:var(--cream)}
-.guests .lead{color:#b9b29e}
-.ghead{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:30px}
+/* GUESTS */
+.ghead{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:34px}
 .gcount{font-family:var(--f-l); color:var(--gold2); font-size:14px; letter-spacing:.18em}
-.wall{display:grid; grid-template-columns:repeat(12,1fr); gap:14px}
-.tile{position:relative; border-radius:16px; overflow:hidden; cursor:pointer; border:1px solid #ffffff1c}
-.tile img{width:100%; height:100%; object-fit:cover; aspect-ratio:var(--ar,4/5); transition:transform .8s cubic-bezier(.16,1,.3,1), opacity .4s ease}
-.tile:hover img{transform:scale(1.05)}
-.tile .lb{position:absolute; bottom:10px; inset-inline-start:10px; background:#0e1730cc; color:var(--cream); font-size:12px; font-weight:700; padding:6px 11px; border-radius:999px; border:1px solid #c9a24b33}
+.wall{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+.tile{position:relative; border-radius:18px; overflow:hidden; cursor:pointer; border:1px solid #ffffff1c; will-change:transform}
+.tile img{width:100%; height:100%; object-fit:cover; aspect-ratio:var(--ar,4/5); transition:transform .9s var(--ease)}
+.tile:hover img{transform:scale(1.06)}
+.tile .lb{position:absolute; bottom:10px; inset-inline-start:10px; background:#0b1428cc; color:var(--cream); font-size:12px; font-weight:700; padding:6px 11px; border-radius:999px; border:1px solid #c9a24b33}
 .tile.hide{display:none}
 .t-big{grid-column:span 5}.t-mid{grid-column:span 4}.t-sml{grid-column:span 3}
-.wall .tile{opacity:1; transition:opacity .35s ease}
-.wall.fading .tile{opacity:0}
+.cin .tile{clip-path:inset(0 0 0 0)}
 
-/* inside */
-.inside{background:var(--paper); padding:clamp(60px,8vw,100px) 0; border-bottom:1px solid var(--line)}
-.inside .row{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:30px}
-.inside figure{margin:0; border-radius:16px; overflow:hidden; position:relative; border:1px solid var(--line)}
-.inside figure img{width:100%; aspect-ratio:4/3; object-fit:cover; transition:transform .8s cubic-bezier(.16,1,.3,1)}
-.inside figure:hover img{transform:scale(1.05)}
-.inside figcaption{position:absolute; bottom:0; inset-inline:0; padding:26px 14px 10px; background:linear-gradient(to top,#0e1730d9,transparent); color:var(--cream); font-size:13px; font-weight:700}
-.hoursline{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; margin-top:26px; padding:18px 20px; border:1.5px dashed var(--gold); border-radius:16px; background:#c9a24b0d}
+/* INSIDE */
+.inside .row{display:grid; grid-template-columns:1.25fr 1fr 1fr; gap:16px; margin-top:34px}
+.inside figure{margin:0; border-radius:18px; overflow:hidden; position:relative; border:1px solid var(--line)}
+.inside figure img{width:100%; aspect-ratio:4/3.4; object-fit:cover; transition:transform .9s var(--ease)}
+.inside figure:first-child img{aspect-ratio:4/3.06}
+.inside figure:hover img{transform:scale(1.06)}
+.inside figcaption{position:absolute; bottom:0; inset-inline:0; padding:30px 14px 12px; background:linear-gradient(to top,#0b1428d9,transparent); color:var(--cream); font-size:13px; font-weight:700}
+.hoursline{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; margin-top:30px; padding:20px 22px; border:1.5px dashed var(--gold); border-radius:18px; background:#c9a24b0d}
 .hoursline b{color:var(--navy)}
 .hoursline .tagchip{background:var(--navy); color:var(--gold2); font-size:12.5px; font-weight:800; padding:7px 13px; border-radius:999px}
 
-/* words */
-.words{background:var(--cream); padding:clamp(60px,8vw,100px) 0}
-.tags{display:flex; flex-wrap:wrap; gap:10px; margin:20px 0 34px}
-.quote{background:var(--paper); border:1px solid var(--line); border-inline-start:4px solid var(--gold); border-radius:16px; padding:clamp(22px,4vw,36px); max-width:760px}
-.quote p{margin:0 0 14px; font-size:clamp(17px,2.4vw,21px); line-height:1.9; color:var(--ink)}
+/* WORDS */
+.words{overflow:clip}
+.words .qmark{position:absolute; top:20px; inset-inline-end:4%; font-family:var(--f-d); font-size:clamp(140px,20vw,260px); line-height:1; color:#c9a24b1f; pointer-events:none; user-select:none; z-index:0}
+.words .pad{position:relative; z-index:1}
+.tags{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 36px}
+.tags .chip{color:var(--gold-dim); border-color:var(--gold-dim); background:#c9a24b12}
+.quote{background:var(--paper); border:1px solid var(--line); border-inline-start:4px solid var(--gold); border-radius:18px; padding:clamp(24px,4vw,38px); max-width:780px; box-shadow:0 30px 60px -40px #0b14284d}
+.quote p{margin:0 0 14px; font-size:clamp(17px,2.4vw,21px); line-height:1.95}
 .quote .who{color:var(--mut); font-size:13.5px; font-weight:700}
-.stats{display:flex; gap:clamp(24px,6vw,70px); margin-top:44px; flex-wrap:wrap}
-.stat .num{font-family:var(--f-l); font-weight:800; font-size:clamp(38px,6vw,58px); color:var(--navy); line-height:1}
-.stat .num small{font-size:.5em; color:var(--gold-dim)}
+.stats{display:flex; gap:clamp(26px,6vw,76px); margin-top:48px; flex-wrap:wrap}
+.stat .num{font-family:var(--f-l); font-weight:800; font-size:clamp(40px,6.4vw,64px); color:var(--navy); line-height:1}
+.stat .num small{font-size:.48em; color:var(--gold-dim)}
 .stat .cap{color:var(--mut); font-size:14px; margin-top:6px}
 
-/* appointment closer */
-.appt{background:var(--navy); padding:clamp(64px,9vw,110px) 0; color:var(--cream)}
-.card{position:relative; max-width:820px; margin:0 auto; background:var(--paper); color:var(--ink); border-radius:22px; padding:clamp(26px,5vw,48px); box-shadow:0 40px 90px -40px #000c; border-top:6px solid var(--gold)}
-.card::before{content:""; position:absolute; top:-6px; inset-inline:24px; height:6px}
-.card .hd{display:flex; align-items:center; gap:14px; border-bottom:2px dashed var(--line2); padding-bottom:16px; margin-bottom:18px}
-.card .hd img{width:46px; height:46px; border-radius:50%; object-fit:cover; border:2px solid var(--gold)}
-.card .hd .t1{font-family:var(--f-d); font-size:24px; color:var(--navy); line-height:1.2}
+/* APPOINTMENT */
+.appt .card{position:relative; max-width:840px; margin:0 auto; background:var(--paper); color:var(--ink); border-radius:24px; padding:clamp(28px,5vw,50px); box-shadow:0 50px 100px -40px #000d; border-top:6px solid var(--gold)}
+.card .hd{display:flex; align-items:center; gap:14px; border-bottom:2px dashed var(--line2); padding-bottom:18px; margin-bottom:18px}
+.card .hd img{width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold)}
+.card .hd .t1{font-family:var(--f-d); font-size:26px; color:var(--navy); line-height:1.2}
 .card .hd .t2{font-size:12.5px; color:var(--mut); font-weight:700}
-.rows{display:grid; gap:0}
 .rows .r{display:flex; justify-content:space-between; gap:14px; padding:13px 2px; border-bottom:1px dashed var(--line); font-size:15px}
 .rows .r:last-child{border-bottom:0}
 .rows .k{color:var(--mut); font-weight:700; white-space:nowrap}
 .rows .v{font-weight:800; color:var(--navy); text-align:left}
 .rows .v[dir=ltr]{font-family:var(--f-l); letter-spacing:.04em}
-.card .ctas{margin-top:22px}
-.card .note{margin-top:16px; font-size:12.5px; color:var(--mut); text-align:center}
+.card .ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:24px}
+.card .note{margin-top:18px; font-size:12.5px; color:var(--mut); text-align:center}
+.stamp{position:absolute; top:-34px; inset-inline-end:26px; width:88px; height:88px; border-radius:50%; background:radial-gradient(circle at 32% 30%, #e9d193, var(--gold) 62%, #a8853a); color:var(--navy); display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:var(--f-l); font-weight:800; box-shadow:0 16px 34px -12px #0009, inset 0 0 0 3px #0b142822, inset 0 0 0 6px #e9d19355; transform:rotate(-10deg)}
+.stamp svg{width:30px; height:24px; margin-bottom:2px}
+.stamp small{font-size:9.5px; letter-spacing:.14em}
 
-footer{background:var(--navy); color:#8f8a76; font-size:12.5px; padding:22px 0 90px; border-top:1px solid #ffffff14}
+footer{background:var(--navy); color:#8f8a76; font-size:12.5px; padding:26px 0 100px; position:relative; z-index:2}
 footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:space-between}
 
-/* sticky mobile bar */
-.mbar{position:fixed; bottom:0; inset-inline:0; z-index:70; display:none; gap:10px; padding:10px 14px calc(10px + env(safe-area-inset-bottom)); background:rgba(14,23,48,.92); backdrop-filter:blur(10px); border-top:1px solid #c9a24b33}
+.mbar{position:fixed; bottom:0; inset-inline:0; z-index:110; display:none; gap:10px; padding:10px 14px calc(10px + env(safe-area-inset-bottom)); background:rgba(11,20,40,.92); backdrop-filter:blur(12px); border-top:1px solid #c9a24b33}
 .mbar a{flex:1; text-align:center; text-decoration:none; font-weight:800; font-size:14.5px; padding:13px 8px; border-radius:12px}
 .mbar .c1{background:var(--gold); color:var(--navy)}
 .mbar .c2{border:1.5px solid var(--gold); color:var(--gold2)}
 
-@media (max-width:860px){
-  .ask .grid{grid-template-columns:1fr; gap:34px}
-  .portrait{max-width:420px; margin:0 auto; width:100%}
+@media (max-width:880px){
+  .ask .grid{grid-template-columns:1fr; gap:38px}
+  .portrait{max-width:430px; margin:0 auto; width:100%}
   .inside .row{grid-template-columns:1fr}
+  .inside figure img, .inside figure:first-child img{aspect-ratio:4/2.8}
   .t-big{grid-column:span 12}.t-mid{grid-column:span 6}.t-sml{grid-column:span 6}
   .mbar{display:flex}
   .topbar .pl{display:none}
+  .hero .hint{display:none}
+  .stamp{width:74px; height:74px; top:-26px}
 }
 @media (max-width:430px){
   .t-mid,.t-sml{grid-column:span 12}
@@ -199,92 +212,99 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:space-b
   <div class="nm">ROYAL PETS</div>
   <div class="ln"><i id="ldln"></i></div>
 </div>
+<div id="prog"></div>
 
 <header class="topbar" id="topbar">
   <img class="emb" src="a/emblem.webp" alt="شعار Royal Pets">
   <span class="nm">ROYAL PETS</span>
-  <span class="pl" style="font-size:12px;color:#b9b29e">الشيخ زايد، الإسماعيلية</span>
+  <span class="pl">الشيخ زايد، الإسماعيلية</span>
   <span class="sp"></span>
   <span class="chip" id="openChip2"><span class="dot"></span><span class="tx">…</span></span>
   <a class="callbtn" href="tel:+201141616776">اتصل بالعيادة</a>
 </header>
 
-<section class="opener">
-  <div class="band">
-    <img src="a/sign.webp" alt="واجهة عيادة Royal Pets بالليل ولافتتها المضيئة" fetchpriority="high">
-    <div class="over">
-      <div class="in">
-        <span class="kicker rv">عيادة بيطرية · مستشفى حيوانات على جوجل ماب</span>
-        <h1><span class="mask"><span>ROYAL PETS</span></span>
-            <span class="ar mask"><span>رويال بيتس — لأنهم من العيلة</span></span></h1>
-        <div class="metaline rv d1">
-          <span class="rt"><span class="star">★★★★★</span><b>4.2</b> من <b>255</b> تقييم</span>
-          <span class="sep"></span>
-          <span class="chip" id="openChip1"><span class="dot"></span><span class="tx">…</span></span>
-          <span class="sep"></span>
-          <span class="pl">الطريق السريع، الشيخ زايد، الإسماعيلية</span>
-        </div>
-      </div>
+<section class="hero" id="hero">
+  <div class="bgwrap"><img src="a/sign.webp" alt="واجهة عيادة Royal Pets بالليل ولافتتها المضيئة" fetchpriority="high"></div>
+  <div class="shade"></div><div class="grain"></div>
+  <div class="inner">
+    <span class="kicker" data-fade>عيادة بيطرية · مستشفى حيوانات على جوجل ماب</span>
+    <h1>
+      <span class="split-en" dir="ltr">ROYAL PETS</span>
+      <span class="ar split-ar">رويال بيتس — لأنهم من العيلة</span>
+    </h1>
+    <div class="metaline" data-fade>
+      <span class="rt"><span class="star">★★★★★</span><b>4.2</b> من <b>255</b> تقييم</span>
+      <span class="sep"></span>
+      <span class="chip" id="openChip1"><span class="dot"></span><span class="tx">…</span></span>
+      <span class="sep"></span>
+      <span class="pl">الطريق السريع، الشيخ زايد، الإسماعيلية</span>
+    </div>
+    <div class="ctas" data-fade>
+      <a class="btn gold" href="tel:+201141616776">اتصل بالعيادة: <span dir="ltr">011 41616776</span></a>
+      <a class="btn ghost" href="https://wa.me/201141616776" rel="noopener">واتساب</a>
     </div>
   </div>
-  <div class="thread"></div>
+  <span class="hint">انزل تحت<i></i></span>
 </section>
 
-<section class="ask" id="ask">
-  <div class="wrap grid">
+<main class="stk">
+
+<section class="panel light ask" id="ask">
+  <span class="ghostword" id="ghostword">قطة</span>
+  <div class="wrap pad grid">
     <div>
-      <h2 class="rv">مين فرد العيلة<br>اللي محتاج <span class="g">دكتور النهارده؟</span></h2>
-      <p class="lead rv d1">اختار ضيفك، والصفحة هتظبط نفسها عليه. صور حقيقية من صفحة العيادة على جوجل ماب، وكلام الناس اللي زاروها.</p>
-      <div class="pets rv d2" role="group" aria-label="اختر نوع حيوانك الأليف">
+      <h2 class="split-h">مين فرد العيلة اللي محتاج <span class="g">دكتور النهارده؟</span></h2>
+      <p class="lead" data-rv>اختار ضيفك، والصفحة هتظبط نفسها عليه. صور حقيقية من صفحة العيادة على جوجل ماب، وكلام الناس اللي زاروها.</p>
+      <div class="pets" data-rv role="group" aria-label="اختر نوع حيوانك الأليف">
         <button class="pet sel" data-pet="cat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9 3 4l5 3a8.6 8.6 0 0 1 8 0l5-3-1 5a8 8 0 1 1-16 0Z"/><circle cx="9" cy="13" r=".6" fill="currentColor"/><circle cx="15" cy="13" r=".6" fill="currentColor"/><path d="M10.5 16.5c.8.7 2.2.7 3 0"/></svg>قطة</button>
         <button class="pet" data-pet="dog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8c-2 0-3.5 1.2-3.5 3S5 13.5 6 13c.5 3 2.5 6 6 6s5.5-3 6-6c1 .5 2.5-.5 2.5-2S19 8 17 8c-1-2.5-2.8-4-5-4S8 5.5 7 8Z"/><circle cx="9.5" cy="12" r=".6" fill="currentColor"/><circle cx="14.5" cy="12" r=".6" fill="currentColor"/><path d="M11 15h2l-1 1.2z" fill="currentColor"/></svg>كلب</button>
         <button class="pet" data-pet="bird"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7a4 4 0 0 0-8 .5C8 11 6 13 3 14c3 .5 5 .5 7 0a4.5 4.5 0 0 0 6-4l3-1.5L16 7Z"/><circle cx="14.5" cy="6.5" r=".6" fill="currentColor"/><path d="M10 18v3M14 18v3"/></svg>عصفور</button>
         <button class="pet" data-pet="other"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="9" r="1.6"/><circle cx="11" cy="6.5" r="1.6"/><circle cx="16" cy="8" r="1.6"/><path d="M8 15c0-2.5 2-4.5 4-4.5s4 2 4 4.5c0 2-1.5 3-4 3s-4-1-4-3Z"/></svg>حاجة تانية</button>
       </div>
-      <p class="ans rv d2" id="ans" aria-live="polite">قطة؟ مكانها هنا. شوف صور ضيوف العيادة من تحت، وكلم العيادة قبل ما تيجي.</p>
-      <div class="ctas rv d3">
-        <a class="btn gold" href="tel:+201141616776" id="cta1">اتصل: 011 41616776</a>
-        <a class="btn ghost" href="https://wa.me/201141616776" rel="noopener">واتساب العيادة</a>
+      <p class="ans" data-rv id="ans" aria-live="polite">قطة؟ مكانها هنا. شوف صور ضيوف العيادة تحت، وكلم العيادة قبل ما تيجي.</p>
+      <div class="ctas" data-rv>
+        <a class="btn gold" href="tel:+201141616776" id="cta1">اتصل: <span dir="ltr">011 41616776</span></a>
+        <a class="btn ghost onlight" href="https://wa.me/201141616776" rel="noopener">واتساب العيادة</a>
       </div>
     </div>
-    <div class="portrait rv d1">
-      <span class="ring"></span>
+    <div class="portrait" data-rv>
+      <span class="ring"></span><span class="ring2"></span>
       <div class="ph"><img id="portraitImg" src="a/cat-hero.webp" alt="قطة بيضاء بتاخد علاجها في العيادة" fetchpriority="high"></div>
       <span class="cap" id="portraitCap">ضيفة العيادة — من صور الصفحة على جوجل ماب</span>
     </div>
   </div>
 </section>
 
-<section class="guests" id="guests">
-  <div class="wrap">
+<section class="panel dark guests" id="guests">
+  <div class="wrap pad">
     <div class="ghead">
       <div>
-        <h2 class="rv">ضيوف العيادة</h2>
-        <p class="lead rv d1" style="margin-bottom:0">صور حقيقية منزلها الزوار والعيادة على جوجل ماب. بتتفلتر حسب ضيفك اللي اخترته فوق.</p>
+        <h2 class="split-h">ضيوف العيادة</h2>
+        <p class="lead" data-rv style="margin-bottom:0">صور حقيقية منزلها الزوار والعيادة على جوجل ماب. بتتفلتر حسب ضيفك اللي اخترته فوق.</p>
       </div>
-      <span class="gcount rv d2" id="gcount"></span>
+      <span class="gcount" data-rv id="gcount"></span>
     </div>
     <div class="wall" id="wall">
-      <figure class="tile t-big" data-pet="cat"><img src="a/cat1.webp" alt="قطة رمادية صغيرة بتبص للكاميرا" loading="lazy" style="--ar:3/4"><figcaption class="lb">قطة</figcaption></figure>
-      <figure class="tile t-mid" data-pet="dog"><img src="a/dog1.webp" alt="كلب صغير أسود واقف جنب لعبته" loading="lazy" style="--ar:3/4"><figcaption class="lb">كلب</figcaption></figure>
-      <figure class="tile t-sml" data-pet="cat"><img src="a/cat3.webp" alt="قطتين بيضا حضن بعض" loading="lazy" style="--ar:3/4"><figcaption class="lb">قطة</figcaption></figure>
-      <figure class="tile t-sml" data-pet="cat"><img src="a/cat2.webp" alt="قطة رمادية مرتاحة على الكنبة" loading="lazy" style="--ar:4/3"><figcaption class="lb">قطة</figcaption></figure>
-      <figure class="tile t-mid" data-pet="dog"><img src="a/dog2.webp" alt="جرو صغير نايم على السرير" loading="lazy" style="--ar:3/4"><figcaption class="lb">كلب</figcaption></figure>
-      <figure class="tile t-big" data-pet="bird other cat dog"><img src="a/inside.webp" alt="مدخل العيادة من جوه واللافتة المضيئة" loading="lazy" style="--ar:4/3"><figcaption class="lb">العيادة من جوه</figcaption></figure>
+      <figure class="tile t-big" data-pet="cat" data-speed="18"><img src="a/cat1.webp" alt="قطة رمادية صغيرة بتبص للكاميرا" loading="lazy" style="--ar:3/4"><figcaption class="lb">قطة</figcaption></figure>
+      <figure class="tile t-mid" data-pet="dog" data-speed="-14"><img src="a/dog1.webp" alt="كلب صغير أسود واقف جنب لعبته" loading="lazy" style="--ar:3/4"><figcaption class="lb">كلب</figcaption></figure>
+      <figure class="tile t-sml" data-pet="cat" data-speed="24"><img src="a/cat3.webp" alt="قطتين بيضا حضن بعض" loading="lazy" style="--ar:3/4"><figcaption class="lb">قطة</figcaption></figure>
+      <figure class="tile t-sml" data-pet="cat" data-speed="-20"><img src="a/cat2.webp" alt="قطة رمادية مرتاحة على الكنبة" loading="lazy" style="--ar:4/3"><figcaption class="lb">قطة</figcaption></figure>
+      <figure class="tile t-mid" data-pet="dog" data-speed="14"><img src="a/dog2.webp" alt="جرو صغير نايم على السرير" loading="lazy" style="--ar:3/4"><figcaption class="lb">كلب</figcaption></figure>
+      <figure class="tile t-big" data-pet="bird other cat dog" data-speed="-10"><img src="a/inside.webp" alt="مدخل العيادة من جوه واللافتة المضيئة" loading="lazy" style="--ar:4/3"><figcaption class="lb">العيادة من جوه</figcaption></figure>
     </div>
   </div>
 </section>
 
-<section class="inside" id="inside">
-  <div class="wrap">
-    <h2 class="rv">من جوه العيادة</h2>
-    <p class="lead rv d1">العيادة على الطريق السريع في الشيخ زايد، قدام مبنى الإذاعة والتليفزيون. دي صور المكان زي ما هو على جوجل ماب.</p>
+<section class="panel light inside" id="inside">
+  <div class="wrap pad">
+    <h2 class="split-h">من جوه العيادة</h2>
+    <p class="lead" data-rv>العيادة على الطريق السريع في الشيخ زايد، قدام مبنى الإذاعة والتليفزيون. دي صور المكان زي ما هو على جوجل ماب.</p>
     <div class="row">
-      <figure class="rv"><img src="a/inside.webp" alt="استقبال العيادة ولافتة Royal Pets المضيئة" loading="lazy"><figcaption>الاستقبال</figcaption></figure>
-      <figure class="rv d1"><img src="a/exam.webp" alt="غرفة كشف مجهزة بإضاءة عمليات" loading="lazy"><figcaption>غرفة الكشف</figcaption></figure>
-      <figure class="rv d2"><img src="a/equip.webp" alt="جهاز أشعة وأجهزة طبية في العيادة" loading="lazy"><figcaption>الأجهزة</figcaption></figure>
+      <figure data-rv><img src="a/inside.webp" alt="استقبال العيادة ولافتة Royal Pets المضيئة" loading="lazy"><figcaption>الاستقبال</figcaption></figure>
+      <figure data-rv><img src="a/exam.webp" alt="غرفة كشف مجهزة بإضاءة عمليات" loading="lazy"><figcaption>غرفة الكشف</figcaption></figure>
+      <figure data-rv><img src="a/equip.webp" alt="جهاز أشعة وأجهزة طبية في العيادة" loading="lazy"><figcaption>الأجهزة</figcaption></figure>
     </div>
-    <div class="hoursline rv d2">
+    <div class="hoursline" data-rv>
       <span class="tagchip">المواعيد</span>
       <span><b>مفتوح كل يوم</b> من 1 الضهر لـ 12 بالليل</span>
       <span class="tagchip">من كلام الزوار</span>
@@ -293,29 +313,34 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:space-b
   </div>
 </section>
 
-<section class="words" id="words">
-  <div class="wrap">
-    <h2 class="rv">كلام أصحاب الحيوانات</h2>
-    <div class="tags rv d1">
-      <span class="chip" style="color:var(--gold-dim);border-color:var(--gold-dim);background:#c9a24b12">نضافة المكان ×6</span>
-      <span class="chip" style="color:var(--gold-dim);border-color:var(--gold-dim);background:#c9a24b12">معاملة محترمة ×2</span>
-      <span class="chip" style="color:var(--gold-dim);border-color:var(--gold-dim);background:#c9a24b12">ناس محترمة ×2</span>
+<section class="panel creamy words" id="words">
+  <span class="qmark">”</span>
+  <div class="wrap pad">
+    <h2 class="split-h">كلام أصحاب الحيوانات</h2>
+    <div class="tags" data-rv>
+      <span class="chip">نضافة المكان ×6</span>
+      <span class="chip">معاملة محترمة ×2</span>
+      <span class="chip">ناس محترمة ×2</span>
     </div>
-    <blockquote class="quote rv d2">
+    <blockquote class="quote" data-rv>
       <p>«ببغاء الكونيور بتاعي كان تعبان، والطيور أصلاً صعب تتعالج لما تمرض. الفريق اهتم بيه، وبريدجيت رجعت لصحتها بالكامل. شكراً ليكم.»</p>
       <span class="who">علي — تقييم 5 نجوم على جوجل، من سنة</span>
     </blockquote>
     <div class="stats">
-      <div class="stat rv d2"><div class="num"><span data-count="4.2" data-dec="1">0</span><small> ★</small></div><div class="cap">متوسط التقييم</div></div>
-      <div class="stat rv d3"><div class="num"><span data-count="255">0</span></div><div class="cap">تقييم على جوجل ماب</div></div>
-      <div class="stat rv d3"><div class="num"><span data-count="7">0</span></div><div class="cap">أيام في الأسبوع مفتوح</div></div>
+      <div class="stat" data-rv><div class="num"><span data-count="4.2" data-dec="1">0</span><small> ★</small></div><div class="cap">متوسط التقييم</div></div>
+      <div class="stat" data-rv><div class="num"><span data-count="255">0</span></div><div class="cap">تقييم على جوجل ماب</div></div>
+      <div class="stat" data-rv><div class="num"><span data-count="7">0</span></div><div class="cap">أيام في الأسبوع مفتوح</div></div>
     </div>
   </div>
 </section>
 
-<section class="appt" id="appt">
-  <div class="wrap">
-    <div class="card rv">
+<section class="panel dark appt" id="appt">
+  <div class="wrap pad">
+    <div class="card" data-rv>
+      <div class="stamp" id="stamp">
+        <svg viewBox="0 0 44 34" fill="none"><path d="M4 28h36M6 28 3 10l10 7L22 4l9 13 10-7-3 18" stroke="#0B1428" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <small>ROYAL</small>
+      </div>
       <div class="hd">
         <img src="a/emblem.webp" alt="شعار Royal Pets الذهبي">
         <div>
@@ -331,12 +356,14 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:space-b
       </div>
       <div class="ctas">
         <a class="btn gold" href="tel:+201141616776">اتصل دلوقتي</a>
-        <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Royal+Pets+veterinary+clinic&query_place_id=ChIJ1_QYS2tZ-BQRPKMRDNQsAaE" rel="noopener">افتح في الخريطة</a>
+        <a class="btn ghost onlight" href="https://www.google.com/maps/search/?api=1&query=Royal+Pets+veterinary+clinic&query_place_id=ChIJ1_QYS2tZ-BQRPKMRDNQsAaE" rel="noopener">افتح في الخريطة</a>
       </div>
       <p class="note">الأسعار والخدمات بتتأكد بمكالمة — الصفحة دي معاينة بس ومفيش فيها حاجة مخترعة.</p>
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -349,132 +376,246 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:space-b
   <a class="c1" href="tel:+201141616776">اتصل بالعيادة</a>
   <a class="c2" href="https://wa.me/201141616776" rel="noopener">واتساب</a>
 </nav>
+<script src="a/gsap.min.js"></script>
+<script src="a/ScrollTrigger.min.js"></script>
+<script src="a/lenis.min.js"></script>
 <script>
 (function(){
 "use strict";
 var $=function(s){return document.querySelector(s)};
 var $$=function(s){return [].slice.call(document.querySelectorAll(s))};
+var cin=document.documentElement.classList.contains('cin');
+var hasGsap=typeof gsap!=='undefined' && typeof ScrollTrigger!=='undefined';
 
-/* loader */
-var ld=$('#loader'), ln=$('#ldln');
-if(document.documentElement.classList.contains('cin')){
-  requestAnimationFrame(function(){ if(ln) ln.style.width='100%'; });
-  window.addEventListener('load',function(){
-    setTimeout(function(){
-      if(ld) ld.classList.add('done');
-      $$('.opener .mask').forEach(function(m,i){ setTimeout(function(){m.classList.add('in')}, 120+i*160); });
-      $$('.opener .rv').forEach(function(r,i){ setTimeout(function(){r.classList.add('in')}, 500+i*130); });
-    }, 950);
-  });
-} else {
-  $$('.mask, .rv').forEach(function(m){m.classList.add('in')});
+/* hard fallback: no motion libs -> show everything */
+if(!cin || !hasGsap){
+  document.documentElement.classList.remove('cin');
+  cin=false;
+}
+if(hasGsap){ gsap.registerPlugin(ScrollTrigger); }
+
+/* smooth scroll */
+var lenis=null;
+if(cin && typeof Lenis!=='undefined'){
+  lenis=new Lenis({duration:1.05, smoothWheel:true});
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+  gsap.ticker.lagSmoothing(0);
 }
 
-/* topbar on scroll */
-var tb=$('#topbar');
-function onScroll(){ if(tb) tb.classList.toggle('on', window.scrollY>Math.min(innerHeight*.55,480)); }
-addEventListener('scroll',onScroll,{passive:true}); onScroll();
-
-/* reveals */
-if('IntersectionObserver' in window){
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  },{threshold:.14, rootMargin:'0px 0px -6% 0px'});
-  $$('.rv').forEach(function(el){
-    if(el.closest('.opener')) return; /* opener handled after loader */
-    io.observe(el);
-  });
-  /* fallback if reduced motion: everything visible */
-  if(!document.documentElement.classList.contains('cin')){
-    $$('.rv').forEach(function(el){el.classList.add('in')});
+/* topbar + progress */
+var tb=$('#topbar'), prog=$('#prog');
+function onScrollUI(){
+  var y=window.scrollY||document.documentElement.scrollTop;
+  if(tb){ tb.classList.toggle('on', y>Math.min(innerHeight*.62,560)); }
+  if(prog){
+    var h=document.documentElement.scrollHeight-innerHeight;
+    prog.style.transform='scaleX('+(h>0?Math.min(1,y/h):0)+')';
   }
+}
+addEventListener('scroll',onScrollUI,{passive:true});
+onScrollUI();
+
+/* word/letter splitting */
+function splitInto(el,byWord){
+  var text=el.textContent.trim();
+  el.setAttribute('aria-label',text);
+  el.textContent='';
+  var parts=byWord? text.split(/\s+/) : text.split('');
+  parts.forEach(function(p,i){
+    var m=document.createElement('span'); m.className='wmask'; m.setAttribute('aria-hidden','true');
+    var s=document.createElement('span'); s.textContent=p;
+    m.appendChild(s); el.appendChild(m);
+    if(byWord && i<parts.length-1){ el.appendChild(document.createTextNode(' ')); }
+  });
+  return $$('.wmask > span').filter(function(){return false;}).length, el.querySelectorAll('.wmask > span');
+}
+var heroEn=$('.split-en'), heroAr=$('.split-ar');
+var enSpans=heroEn?splitInto(heroEn,false):[];
+var arSpans=heroAr?splitInto(heroAr,true):[];
+$$('.split-h').forEach(function(h){
+  var kids=[].slice.call(h.childNodes);
+  h.innerHTML='';
+  kids.forEach(function(n){
+    if(n.nodeType===3){
+      n.textContent.trim().split(/\s+/).filter(Boolean).forEach(function(w,idx,arr){
+        var m=document.createElement('span'); m.className='wmask';
+        var s=document.createElement('span'); s.textContent=w;
+        m.appendChild(s); h.appendChild(m);
+        h.appendChild(document.createTextNode(' '));
+      });
+    } else if(n.nodeType===1){
+      var m=document.createElement('span'); m.className='wmask';
+      var s=document.createElement('span'); s.appendChild(n);
+      m.appendChild(s); h.appendChild(m);
+      h.appendChild(document.createTextNode(' '));
+    }
+  });
+});
+
+/* loader + hero intro */
+var ld=$('#loader');
+function heroIntro(){
+  if(!cin){
+    $$('.wmask > span').forEach(function(s){s.style.transform='none'});
+    return;
+  }
+  var tl=gsap.timeline({defaults:{ease:'expo.out'}});
+  tl.to(enSpans,{y:0,duration:1.15,stagger:.045},0)
+    .to(arSpans,{y:0,duration:1.1,stagger:.1},.25)
+    .fromTo('.hero [data-fade]',{y:26,opacity:0},{y:0,opacity:1,duration:.9,stagger:.12},.55);
+}
+if(cin){
+  var path=$('#loader .crown path'), nm=$('#loader .nm'), ln=$('#ldln');
+  gsap.to(path,{strokeDashoffset:0,duration:1.05,ease:'power2.out',delay:.1});
+  gsap.to(nm,{opacity:1,duration:.6,delay:.5});
+  gsap.to(ln,{width:'100%',duration:1.15,ease:'power2.inOut',delay:.15});
+  gsap.to(ld,{yPercent:-100,duration:.85,ease:'expo.inOut',delay:1.45,onComplete:function(){ld.style.display='none'}});
+  gsap.delayedCall(1.7,heroIntro);
 } else {
-  $$('.rv').forEach(function(el){el.classList.add('in')});
+  if(ld){ld.style.display='none';}
+  heroIntro();
+}
+
+/* hero parallax + panel slide-over feel */
+if(cin){
+  gsap.to('.hero .bgwrap',{yPercent:16,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.hero .inner',{yPercent:-10,opacity:.25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+}
+
+/* generic reveals */
+if(cin){
+  $$('[data-rv]').forEach(function(el){
+    gsap.fromTo(el,{y:38,opacity:0},{y:0,opacity:1,duration:.95,ease:'expo.out',
+      scrollTrigger:{trigger:el,start:'top 86%',once:true}});
+  });
+  $$('.split-h').forEach(function(h){
+    gsap.to(h.querySelectorAll('.wmask > span'),{y:0,duration:1,stagger:.06,ease:'expo.out',
+      scrollTrigger:{trigger:h,start:'top 84%',once:true}});
+  });
+  /* gallery tile parallax, desktop only */
+  if(innerWidth>=900){
+    $$('.tile[data-speed]').forEach(function(t){
+      var sp=parseFloat(t.getAttribute('data-speed'))||0;
+      gsap.fromTo(t,{y:sp*2},{y:-sp*2,ease:'none',
+        scrollTrigger:{trigger:t,start:'top bottom',end:'bottom top',scrub:true}});
+    });
+  }
+  /* ghost word slow drift */
+  var gw=$('#ghostword');
+  if(gw && innerWidth>=900){
+    gsap.to(gw,{xPercent:-6,ease:'none',scrollTrigger:{trigger:'.ask',start:'top bottom',end:'bottom top',scrub:true}});
+  }
+  /* stamp entrance */
+  var stamp=$('#stamp');
+  if(stamp){
+    gsap.fromTo(stamp,{scale:2.1,opacity:0,rotate:-32},{scale:1,opacity:1,rotate:-10,duration:.7,ease:'back.out(2.2)',
+      scrollTrigger:{trigger:'#appt .card',start:'top 74%',once:true}});
+  }
+  /* magnetic buttons, desktop */
+  if(innerWidth>=900){
+    $$('.btn').forEach(function(b){
+      b.addEventListener('mousemove',function(e){
+        var r=b.getBoundingClientRect();
+        gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.18,y:(e.clientY-r.top-r.height/2)*.3,duration:.4,ease:'power2.out'});
+      });
+      b.addEventListener('mouseleave',function(){ gsap.to(b,{x:0,y:0,duration:.5,ease:'elastic.out(1,.5)'}); });
+    });
+  }
 }
 
 /* counters */
 function countUp(el){
   var t=parseFloat(el.getAttribute('data-count')), dec=parseInt(el.getAttribute('data-dec')||'0',10);
-  var st=null, dur=1100;
-  function step(ts){
-    if(!st) st=ts;
-    var p=Math.min(1,(ts-st)/dur); p=1-Math.pow(1-p,3);
-    el.textContent=(t*p).toFixed(dec);
-    if(p<1) requestAnimationFrame(step); else el.textContent=t.toFixed(dec);
-  }
-  requestAnimationFrame(step);
+  if(!cin){ el.textContent=t.toFixed(dec); return; }
+  var o={v:0};
+  gsap.to(o,{v:t,duration:1.3,ease:'power3.out',onUpdate:function(){el.textContent=o.v.toFixed(dec);},
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}});
 }
-if('IntersectionObserver' in window){
-  var co=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ countUp(e.target); co.unobserve(e.target);} });
-  },{threshold:.6});
-  $$('[data-count]').forEach(function(el){co.observe(el)});
-} else {
-  $$('[data-count]').forEach(function(el){el.textContent=el.getAttribute('data-count')});
-}
+$$('[data-count]').forEach(countUp);
 
 /* open/closed (Africa/Cairo, daily 13:00-24:00) */
-function openState(){
-  var h;
-  try{ h=parseInt(new Intl.DateTimeFormat('en-GB',{hour:'2-digit',hour12:false,timeZone:'Africa/Cairo'}).format(new Date()),10); }
-  catch(e){ h=new Date().getHours()+2; }
-  return (h>=13);
-}
-var openNow=openState();
-[['#openChip1'],['#openChip2']].forEach(function(pair){
-  var c=$(pair[0]); if(!c) return;
+var hCairo;
+try{ hCairo=parseInt(new Intl.DateTimeFormat('en-GB',{hour:'2-digit',hour12:false,timeZone:'Africa/Cairo'}).format(new Date()),10); }
+catch(e){ hCairo=new Date().getHours(); }
+var openNow=(hCairo>=13);
+['#openChip1','#openChip2'].forEach(function(sel){
+  var c=$(sel); if(!c){return;}
   c.classList.toggle('open',openNow);
   c.querySelector('.tx').textContent= openNow ? 'مفتوح دلوقتي · بيقفل 12 بالليل' : 'مقفول دلوقتي · بيفتح 1 الضهر';
 });
 
-/* pet picker: the signature interaction */
+/* THE SIGNATURE: pet picker */
 var PORTRAITS={
-  cat:{img:'a/cat-hero.webp', cap:'ضيفة العيادة — قطة بتاخد علاجها', ans:'قطة؟ مكانها هنا. شوف صور ضيوف العيادة من تحت، وكلم العيادة قبل ما تيجي.', alt:'قطة بيضاء بتاخد علاجها في العيادة'},
-  dog:{img:'a/dog1.webp', cap:'ضيف العيادة — كلب صغير', ans:'كلب؟ أهلاً بيه. الصور تحت اتفلترت على الكلاب، والعيادة على بعد مكالمة.', alt:'كلب صغير أسود واقف جنب لعبته'},
-  bird:{img:'a/inside.webp', cap:'العيادة من جوه — وفيها خبرة مع الطيور', ans:'عصفور؟ واحدة من أشهر قصص العيادة إنقاذ ببغاء كونيور — اقرأها تحت في كلام الناس.', alt:'مدخل العيادة من جوه'},
-  other:{img:'a/sign.webp', cap:'العيادة على الطريق السريع — اسأل عن حيوانك', ans:'أي حاجة تانية؟ كلم العيادة واسأل — المكالمة أسرع طريقة تعرف بيها إذا بيعالجوا حيوانك.', alt:'واجهة العيادة بالليل'}
+  cat:{img:'a/cat-hero.webp', cap:'ضيفة العيادة — قطة بتاخد علاجها', ghost:'قطة', ans:'قطة؟ مكانها هنا. شوف صور ضيوف العيادة تحت، وكلم العيادة قبل ما تيجي.', alt:'قطة بيضاء بتاخد علاجها في العيادة'},
+  dog:{img:'a/dog1.webp', cap:'ضيف العيادة — كلب صغير', ghost:'كلب', ans:'كلب؟ أهلاً بيه. الصور تحت اتفلترت على الكلاب، والعيادة على بعد مكالمة.', alt:'كلب صغير أسود واقف جنب لعبته'},
+  bird:{img:'a/inside.webp', cap:'العيادة من جوه — وفيها خبرة مع الطيور', ghost:'عصفور', ans:'عصفور؟ واحدة من أشهر قصص العيادة إنقاذ ببغاء كونيور — اقرأها تحت في كلام الناس.', alt:'مدخل العيادة من جوه'},
+  other:{img:'a/sign.webp', cap:'العيادة على الطريق السريع — اسأل عن حيوانك', ghost:'ضيفك', ans:'أي حاجة تانية؟ كلم العيادة واسأل — المكالمة أسرع طريقة تعرف بيها إذا بيعالجوا حيوانك.', alt:'واجهة العيادة بالليل'}
 };
 var wall=$('#wall'), tiles=$$('#wall .tile'), gcount=$('#gcount');
-var portraitImg=$('#portraitImg'), portraitCap=$('#portraitCap'), ans=$('#ans');
+var portraitImg=$('#portraitImg'), portraitCap=$('#portraitCap'), ans=$('#ans'), ghost=$('#ghostword');
 function arabicNum(n){ return n.toLocaleString('ar-EG'); }
+function setCount(){
+  var n=tiles.filter(function(t){return !t.classList.contains('hide');}).length;
+  if(gcount){ gcount.textContent=arabicNum(n)+' صور من جوجل ماب'; }
+}
 function applyPet(p){
-  var cfg=PORTRAITS[p]; if(!cfg) return;
-  /* portrait crossfade */
-  portraitImg.classList.add('swap');
-  ans.classList.add('swap');
-  setTimeout(function(){
-    portraitImg.src=cfg.img; portraitImg.alt=cfg.alt;
-    portraitCap.textContent=cfg.cap;
-    ans.textContent=cfg.ans;
-    portraitImg.onload=function(){ portraitImg.classList.remove('swap'); };
-    setTimeout(function(){portraitImg.classList.remove('swap')},450);
-    ans.classList.remove('swap');
-  },220);
-  /* gallery filter crossfade */
-  if(wall){
-    wall.classList.add('fading');
-    setTimeout(function(){
-      var shown=0;
-      tiles.forEach(function(t){
-        var ok=(t.getAttribute('data-pet')||'').split(' ').indexOf(p)>-1;
-        t.classList.toggle('hide',!ok);
-        if(ok) shown++;
-      });
-      gcount.textContent=arabicNum(shown)+' صور من جوجل ماب';
-      wall.classList.remove('fading');
-    },260);
+  var cfg=PORTRAITS[p]; if(!cfg){return;}
+  if(cin){
+    gsap.to(ans,{opacity:0,y:-8,duration:.22,ease:'power1.in',onComplete:function(){
+      ans.textContent=cfg.ans;
+      gsap.to(ans,{opacity:1,y:0,duration:.4,ease:'power2.out'});
+    }});
+    gsap.to(ghost,{opacity:0,scale:.96,duration:.25,ease:'power1.in',onComplete:function(){
+      ghost.textContent=cfg.ghost;
+      gsap.to(ghost,{opacity:1,scale:1,duration:.55,ease:'power2.out'});
+    }});
+    var ph=portraitImg.parentElement;
+    var swap=function(){
+      portraitImg.src=cfg.img; portraitImg.alt=cfg.alt;
+      portraitCap.textContent=cfg.cap;
+      gsap.fromTo(ph,{clipPath:'circle(6% at 50% 55%)'},{clipPath:'circle(120% at 50% 50%)',duration:.85,ease:'expo.out',onComplete:function(){ph.style.clipPath='none';}});
+    };
+    if(portraitImg.complete || !portraitImg.src.includes(cfg.img)){
+      var pre=new Image(); pre.onload=swap; pre.onerror=swap; pre.src=cfg.img;
+      gsap.to(ph,{opacity:.35,duration:.2,onComplete:function(){gsap.to(ph,{opacity:1,duration:.4});}});
+    }
+    /* wall filter with stagger */
+    var show=[], hide=[];
+    tiles.forEach(function(t){
+      var ok=(t.getAttribute('data-pet')||'').split(' ').indexOf(p)>-1;
+      (ok?show:hide).push(t);
+    });
+    gsap.to(tiles,{opacity:0,y:14,duration:.22,stagger:.03,ease:'power1.in',onComplete:function(){
+      hide.forEach(function(t){t.classList.add('hide');});
+      show.forEach(function(t){t.classList.remove('hide');});
+      setCount();
+      gsap.fromTo(show,{opacity:0,y:22},{opacity:1,y:0,duration:.55,stagger:.06,ease:'expo.out'});
+      ScrollTrigger.refresh();
+    }});
+  } else {
+    ans.textContent=cfg.ans; ghost.textContent=cfg.ghost;
+    portraitImg.src=cfg.img; portraitImg.alt=cfg.alt; portraitCap.textContent=cfg.cap;
+    tiles.forEach(function(t){
+      var ok=(t.getAttribute('data-pet')||'').split(' ').indexOf(p)>-1;
+      t.classList.toggle('hide',!ok);
+    });
+    setCount();
   }
 }
 $$('.pet').forEach(function(b){
   b.addEventListener('click',function(){
-    $$('.pet').forEach(function(x){x.classList.remove('sel')});
+    $$('.pet').forEach(function(x){x.classList.remove('sel');});
     b.classList.add('sel');
     applyPet(b.getAttribute('data-pet'));
   });
 });
-/* initial count */
-(function(){var n=tiles.filter(function(t){return !t.classList.contains('hide')}).length; if(gcount) gcount.textContent=arabicNum(n)+' صور من جوجل ماب';})();
-applyPet('cat');
+// initial filter (no animation): default selected chip is cat
+tiles.forEach(function(t){
+  var ok=(t.getAttribute('data-pet')||'').split(' ').indexOf('cat')>-1;
+  t.classList.toggle('hide',!ok);
+});
+setCount();
 })();
 </script>
 </body>
